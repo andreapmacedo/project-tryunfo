@@ -46,48 +46,6 @@ class App extends React.Component {
   //     // },
   //   }));
   // }
-  onSaveButtonClick(event) {
-    // event.preventDefault();
-    // const { cardName,
-    //   cardDescription,
-    //   cardAttr1,
-    //   cardAttr2,
-    //   cardAttr3,
-    //   cardImage,
-    //   cardRare,
-    //   cardTrunfo,
-    //   hasTrunfo } = this.state;
-    // this.setState((estadoAnterior) => ({
-    //   saveCards: [...estadoAnterior.saveCards,
-    //     { cardName,
-    //       cardDescription,
-    //       cardAttr1,
-    //       cardAttr2,
-    //       cardAttr3,
-    //       cardImage,
-    //       cardRare,
-    //       cardTrunfo,
-    //       hasTrunfo }],
-    // }));
-    // this.setState(({
-    //   cardName: '',
-    //   cardDescription: '',
-    //   cardAttr1: 0,
-    //   cardAttr2: 0,
-    //   cardAttr3: 0,
-    //   cardImage: '',
-    //   cardRare: 'normal',
-    //   cardTrunfo: false,
-    //   hasTrunfo: false,
-    //   isSaveButtonDisabled: true,
-    // }), () => {
-    //   if (this.validationTrunfo()) {
-    //     this.setState({
-    //       hasTrunfo: true,
-    //     });
-    //   }
-    // });
-  }
 
   render() {
     const {
@@ -99,7 +57,7 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      savedCards,
+      // savedCards,
     } = this.state;
     return (
       <main>
