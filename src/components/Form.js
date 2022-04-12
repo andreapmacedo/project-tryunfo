@@ -1,92 +1,124 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import MyInput from './MyInput';
 
-const InitState = {
-  cardName: '',
-};
-
 class Form extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // indexA: 0,
-    };
-  }
-
-  changeInput = () => {
-
-  }
-
   render() {
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      hasTrunfo,
+      isSaveButtonDisabled,
+      onInputChange,
+      onSaveButtonClick,
+      changeHandler,
+    } = this.props;
     return (
       <fieldset>
-        <legend>Dados pessoais</legend>
+        <legend>Card</legend>
         <section>
-          <h2>Registro</h2>
+          <h2>nova carta</h2>
           <form>
             <MyInput
               dataTestid="name-input"
               name="cardName"
               type="text"
-              value={ InitState.cardName }
-              onInputChange={ this.changeInput }
+              value={ cardName }
+              // value="cardName"
+              inputChange={ onInputChange }
             />
             <MyInput
               dataTestid="description-input"
-              name="descriptionCart"
+              name="cardDescription"
               type="textarea"
-              value={ InitState.cardName }
-              onInputChange={ this.changeInput }
+              value={ cardDescription }
+              inputChange={ onInputChange }
             />
             <MyInput
               dataTestid="attr1-input"
-              name="Atributo 1"
+              name="cardAttr1"
               type="number"
-              value={ InitState.cardName }
-              onInputChange={ this.changeInput }
+              value={ cardAttr1 }
+              inputChange={ onInputChange }
             />
             <MyInput
               dataTestid="attr2-input"
-              name="Atributo 2"
+              name="cardAttr2"
               type="number"
-              value={ InitState.cardName }
-              onInputChange={ this.changeInput }
+              value={ cardAttr2 }
+              inputChange={ onInputChange }
             />
             <MyInput
               dataTestid="attr3-input"
-              name="Atributo 3"
+              name="cardAttr3"
               type="number"
-              value={ InitState.cardName }
-              onInputChange={ this.changeInput }
+              value={ cardAttr3 }
+              inputChange={ onInputChange }
             />
             <MyInput
               dataTestid="image-input"
-              name="Atributo 3"
-              type="number"
-              value={ InitState.cardName }
-              onInputChange={ this.changeInput }
+              name="cardImage"
+              type="text"
+              value={ cardImage }
+              inputChange={ onInputChange }
             />
-            {/* <label htmlFor="select"> */}
-            SeLECT
-            <select name="select" id="select" data-testid="rare-input">
-              <option value="normal" selected>normal</option>
+            Raridade
+            <select
+              name="cardRare"
+              id="select"
+              data-testid="rare-input"
+              value={ cardRare }
+              onChange={ onInputChange }
+            >
+              <option value="normal">normal</option>
               <option value="raro">raro</option>
               <option value="muito raro">muito raro</option>
             </select>
-            <MyInput
-              dataTestid="trunfo-input"
-              name="Super Trumfo"
+            <input
+              label="Super Trybe Trunfo"
+              data-testid="trunfo-input"
+              name="cardTrunfo"
               type="checkbox"
-              value={ InitState.cardName }
-              onInputChange={ this.changeInput }
+              value={ cardTrunfo }
+              checked="true"
+              onChange={ onInputChange }
             />
-            <button type="button" data-testid="save-button">Salvar</button>
+            <button
+              type="button"
+              data-testid="save-button"
+              onSaveButtonClick
+              disabled={ isSaveButtonDisabled }
+              onClick={ onSaveButtonClick }
+            >
+              Salvar
+            </button>
           </form>
         </section>
       </fieldset>
     );
   }
 }
+
+Form.propTypes = {
+  cardName: PropTypes.string.isRequired,
+  cardDescription: PropTypes.string.isRequired,
+  cardAttr1: PropTypes.string.isRequired,
+  cardAttr2: PropTypes.string.isRequired,
+  cardAttr3: PropTypes.string.isRequired,
+  cardImage: PropTypes.string.isRequired,
+  cardRare: PropTypes.string.isRequired,
+  cardTrunfo: PropTypes.bool.isRequired,
+  hasTrunfo: PropTypes.bool.isRequired,
+  isSaveButtonDisabled: PropTypes.bool.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  onSaveButtonClick: PropTypes.func.isRequired,
+  changeHandler: PropTypes.func.isRequired,
+};
 
 export default Form;
