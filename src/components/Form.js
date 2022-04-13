@@ -13,7 +13,7 @@ class Form extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      isSaveButtonDisabled,
+      isButtonDisable,
       onInputChange,
       onSaveButtonClick,
     } = this.props;
@@ -88,10 +88,10 @@ class Form extends React.Component {
               onChange={ onInputChange }
             />
             <button
-              type="button"
+              type="submit"
               data-testid="save-button"
               onSaveButtonClick
-              disabled={ isSaveButtonDisabled }
+              disabled={ isButtonDisable }
               onClick={ onSaveButtonClick }
             >
               Salvar
@@ -112,7 +112,7 @@ Form.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
-  isSaveButtonDisabled: PropTypes.bool.isRequired,
+  isButtonDisable: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
 };
