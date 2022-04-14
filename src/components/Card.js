@@ -36,7 +36,7 @@ class Card extends React.Component {
               name={ cardName }
               onClick={ deleteCard }
             >
-              Excluir
+              Remover
             </button>
           )}
         </div>

@@ -5,9 +5,9 @@ import Card from './components/Card';
 const INITIAL_STATE = {
   cardName: '',
   cardDescription: '',
-  cardAttr1: '0',
-  cardAttr2: '0',
-  cardAttr3: '0',
+  cardAttr1: '',
+  cardAttr2: '',
+  cardAttr3: '',
   cardImage: '',
   cardRare: '',
   cardTrunfo: false,
@@ -18,12 +18,11 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = INITIAL_STATE;
-    // this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
   }
 
   onInputChange = ({ target }) => {
     const { name } = target;
-    // console.log(name);
+    console.log(name); // Componente
     const value = target.type === 'checkbox' ? target.checked : target.value;
     // console.log(this.state.hasTrunfo);
     // console.log(value);
@@ -52,20 +51,6 @@ class App extends React.Component {
       return false;
     }
     return true;
-  }
-
-  clearForm = () => {
-    // this.setState({ ...INITIAL_STATE });
-    this.setState({
-      cardName: '',
-      cardDescription: '',
-      cardAttr1: '0',
-      cardAttr2: '0',
-      cardAttr3: '0',
-      cardImage: '',
-      cardRare: '',
-      cardTrunfo: false,
-    });
   }
 
   onSaveButtonClick = (event) => {
@@ -99,6 +84,14 @@ class App extends React.Component {
       cardRare: '',
       cardTrunfo: false,
     }));
+  }
+
+  deleteCard = ({ target }) => {
+    const { name } = target;
+    // console.log(name);
+    const { savedCards } = this.state;
+    const newArrayWithoutCard = savedCards.filter((card) => card.cardName !== name);
+    this.setState({ savedCards: newArrayWithoutCard });
   }
 
   render() {
