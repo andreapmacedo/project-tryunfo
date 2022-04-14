@@ -12,7 +12,8 @@ class Card extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      // hasTrunfo,
+      removeButton,
+      deleteCard,
     } = this.props;
     return (
       <section>
@@ -27,6 +28,17 @@ class Card extends React.Component {
         {/* https://medium.com/reactbrasil/renderiza%C3%A7%C3%A3o-condicional-em-react-bb8c16dddd6f */}
         <div>
           {cardTrunfo && <h2 data-testid="trunfo-card">Super Trunfo</h2>}
+          { removeButton
+          && (
+            <button
+              data-testid="delete-button"
+              type="submit"
+              name={ cardName }
+              onClick={ deleteCard }
+            >
+              Excluir
+            </button>
+          )}
         </div>
       </section>
     );
@@ -42,6 +54,12 @@ Card.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
+  removeButton: PropTypes.bool,
+  deleteCard: PropTypes.func,
 };
 
+Card.defaultProps = {
+  removeButton: false,
+  deleteCard: '',
+};
 export default Card;

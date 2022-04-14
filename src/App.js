@@ -37,9 +37,9 @@ class App extends React.Component {
     const { cardName, cardDescription, cardImage } = this.state;
     const maxAttr = 90;
     const maxTotal = 210;
-    cardAttr1 = parseInt(cardAttr1, 10);
-    cardAttr2 = parseInt(cardAttr2, 10);
-    cardAttr3 = parseInt(cardAttr3, 10);
+    cardAttr1 = Number(cardAttr1);
+    cardAttr2 = Number(cardAttr2);
+    cardAttr3 = Number(cardAttr3);
     if (
       cardName
       && cardDescription
@@ -55,39 +55,53 @@ class App extends React.Component {
   }
 
   clearForm = () => {
-    this.setState({ ...INITIAL_STATE });
-    // this.setState({
-    //   cardName: '',
-    //   cardDescription: '',
-    //   cardAttr1: '0',
-    //   cardAttr2: '0',
-    //   cardAttr3: '0',
-    //   cardImage: '',
-    //   cardRare: '',
-    //   cardTrunfo: false,
-    //   savedCards,
-    // });
+    // this.setState({ ...INITIAL_STATE });
+    this.setState({
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardImage: '',
+      cardRare: '',
+      cardTrunfo: false,
+    });
   }
 
-  onSaveButtonClick = () => {
-    // e.preventDefault();
+  onSaveButtonClick = (event) => {
+    event.preventDefault();
     const { savedCards } = this.state; // Lista de cartas
-    const newCard = this.state; // Nova carta que será adicionada a lista;
-    console.log(newCard);
-    // delete newCard.savedCards; // Remove a lista atual para que não fique duplicada quando a nova lista com a adiçao da nova carte for adicionada na linha abaixo
-    // savedCards.push(newCard);
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo } = this.state;
+    const newCard = {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo };
     this.setState((prevState) => ({
       savedCards: [...prevState.savedCards, newCard],
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardImage: '',
+      cardRare: '',
+      cardTrunfo: false,
     }));
-    // this.setState({
-    //   savedCards: [...savedCards, newCard],
-    // });
-    // this.setState({
-    //   savedCards,
-    // });
-    console.log(savedCards);
-    this.clearForm();
-    // this.setState({
+    // this.setState((prevState) => ({
+    //   savedCards: [...prevState.savedCards, newCard],
     //   cardName: '',
     //   cardDescription: '',
     //   cardAttr1: '0',
@@ -96,8 +110,7 @@ class App extends React.Component {
     //   cardImage: '',
     //   cardRare: '',
     //   cardTrunfo: false,
-    //   savedCards,
-    // });
+    // }));
   }
 
   render() {
@@ -142,16 +155,19 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
         />
         <div className="cards">
-          {savedCards.map((card, index) => (
-            <div className="card" key={ index }>
-              <p>{ card.cardName }</p>
-              <img src={ card.cardImage } alt={ card.cardName } />
-              <p>{ card.cardDescription }</p>
-              <p>{ card.cardAttr1 }</p>
-              <p>{ card.cardAttr2 }</p>
-              <p>{ card.cardAttr3 }</p>
-            </div>
-          ))}
+          {savedCards.map((card) => (<Card
+            key={ card.cardName }
+            cardName={ card.cardName }
+            cardDescription={ card.cardDescription }
+            cardAttr1={ card.cardAttr1 }
+            cardAttr2={ card.cardAttr2 }
+            cardAttr3={ card.cardAttr3 }
+            cardImage={ card.cardImage }
+            cardRare={ card.cardRare }
+            cardTrunfo={ card.cardTrunfo }
+            removeButton
+            deleteCard={ this.deleteCard }
+          />))}
         </div>
       </main>
     );
