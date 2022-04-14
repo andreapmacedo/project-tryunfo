@@ -18,17 +18,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = INITIAL_STATE;
-  }
-
-  checkTrunfo = () => {
-    const { savedCards } = this.state;
-    console.log(savedCards);
-    const hasSTrunfo = savedCards.some((card) => card.cardTrunfo);
-    console.log(hasSTrunfo);
-    // this.setState({
-
-    // });
-    return hasSTrunfo;
+    // this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
   }
 
   onInputChange = ({ target }) => {
@@ -40,26 +30,8 @@ class App extends React.Component {
     this.setState({
       [name]: value,
     });
-    this.checkTrunfo();
   };
 
-  // changeHandler = (event) => {
-  //   let { name, value } = event.target;
-  //   if (name === 'name') value = value.toUpperCase();
-  //   // if (name === 'address') value = this.validateAddress(value);
-  //   this.updateState(name, value);
-  // }
-
-  // updateState(name, value) {
-  //   console.log(name, value);
-  //   this.setState(() => ({
-  //     [name]: value,
-  //     // formError: {
-  //     //   ...state.formError,
-  //     //   [name]: this.validateField(name, value),
-  //     // },
-  //   }));
-  // }
   invalidateAttrs = () => {
     let { cardAttr1, cardAttr2, cardAttr3 } = this.state;
     const { cardName, cardDescription, cardImage } = this.state;
@@ -82,22 +54,50 @@ class App extends React.Component {
     return true;
   }
 
+  clearForm = () => {
+    this.setState({ ...INITIAL_STATE });
+    // this.setState({
+    //   cardName: '',
+    //   cardDescription: '',
+    //   cardAttr1: '0',
+    //   cardAttr2: '0',
+    //   cardAttr3: '0',
+    //   cardImage: '',
+    //   cardRare: '',
+    //   cardTrunfo: false,
+    //   savedCards,
+    // });
+  }
+
   onSaveButtonClick = () => {
-    const { savedCards } = this.state; // Guarda a lista de cartas já criadas
-    const card = this.state; // Nova carta que será adicionada a lista;
-    delete card.savedCards; // Remove a lista atual para que não fique duplicada quando a nova lista com a adiçao da nova carte for adicionada na linha abaixo
-    savedCards.push(card); // Adiciona a nova carta à lista de cartas já criada
-    this.setState({
-      cardName: '',
-      cardDescription: '',
-      cardAttr1: '0',
-      cardAttr2: '0',
-      cardAttr3: '0',
-      cardImage: '',
-      cardRare: '',
-      cardTrunfo: '',
-      savedCards,
-    });
+    // e.preventDefault();
+    const { savedCards } = this.state; // Lista de cartas
+    const newCard = this.state; // Nova carta que será adicionada a lista;
+    console.log(newCard);
+    // delete newCard.savedCards; // Remove a lista atual para que não fique duplicada quando a nova lista com a adiçao da nova carte for adicionada na linha abaixo
+    // savedCards.push(newCard);
+    this.setState((prevState) => ({
+      savedCards: [...prevState.savedCards, newCard],
+    }));
+    // this.setState({
+    //   savedCards: [...savedCards, newCard],
+    // });
+    // this.setState({
+    //   savedCards,
+    // });
+    console.log(savedCards);
+    this.clearForm();
+    // this.setState({
+    //   cardName: '',
+    //   cardDescription: '',
+    //   cardAttr1: '0',
+    //   cardAttr2: '0',
+    //   cardAttr3: '0',
+    //   cardImage: '',
+    //   cardRare: '',
+    //   cardTrunfo: false,
+    //   savedCards,
+    // });
   }
 
   render() {
@@ -142,14 +142,14 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
         />
         <div className="cards">
-          {savedCards.map((item) => (
-            <div className="card" key={ item.cardName }>
-              <p>{ item.cardName }</p>
-              <img src={ item.cardImage } alt={ item.cardName } />
-              <p>{ item.cardDescription }</p>
-              <strong>{ item.cardAttr1 }</strong>
-              <strong>{ item.cardAttr2 }</strong>
-              <strong>{ item.cardAttr3 }</strong>
+          {savedCards.map((card, index) => (
+            <div className="card" key={ index }>
+              <p>{ card.cardName }</p>
+              <img src={ card.cardImage } alt={ card.cardName } />
+              <p>{ card.cardDescription }</p>
+              <p>{ card.cardAttr1 }</p>
+              <p>{ card.cardAttr2 }</p>
+              <p>{ card.cardAttr3 }</p>
             </div>
           ))}
         </div>
