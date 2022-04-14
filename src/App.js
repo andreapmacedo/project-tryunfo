@@ -70,7 +70,6 @@ class App extends React.Component {
 
   onSaveButtonClick = (event) => {
     event.preventDefault();
-    const { savedCards } = this.state; // Lista de cartas
     const {
       cardName,
       cardDescription,
@@ -100,17 +99,6 @@ class App extends React.Component {
       cardRare: '',
       cardTrunfo: false,
     }));
-    // this.setState((prevState) => ({
-    //   savedCards: [...prevState.savedCards, newCard],
-    //   cardName: '',
-    //   cardDescription: '',
-    //   cardAttr1: '0',
-    //   cardAttr2: '0',
-    //   cardAttr3: '0',
-    //   cardImage: '',
-    //   cardRare: '',
-    //   cardTrunfo: false,
-    // }));
   }
 
   render() {
