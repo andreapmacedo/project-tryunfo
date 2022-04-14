@@ -5,9 +5,9 @@ import Card from './components/Card';
 const INITIAL_STATE = {
   cardName: '',
   cardDescription: '',
-  cardAttr1: '',
-  cardAttr2: '',
-  cardAttr3: '',
+  cardAttr1: '0',
+  cardAttr2: '0',
+  cardAttr3: '0',
   cardImage: '',
   cardRare: '',
   cardTrunfo: false,
@@ -20,13 +20,27 @@ class App extends React.Component {
     this.state = INITIAL_STATE;
   }
 
+  checkTrunfo = () => {
+    const { savedCards } = this.state;
+    console.log(savedCards);
+    const hasSTrunfo = savedCards.some((card) => card.cardTrunfo);
+    console.log(hasSTrunfo);
+    // this.setState({
+
+    // });
+    return hasSTrunfo;
+  }
+
   onInputChange = ({ target }) => {
     const { name } = target;
-    console.log(name);
+    // console.log(name);
     const value = target.type === 'checkbox' ? target.checked : target.value;
+    // console.log(this.state.hasTrunfo);
+    // console.log(value);
     this.setState({
       [name]: value,
     });
+    this.checkTrunfo();
   };
 
   // changeHandler = (event) => {
@@ -47,7 +61,6 @@ class App extends React.Component {
   //   }));
   // }
   invalidateAttrs = () => {
-    // console.log('invalidateAttrs');
     let { cardAttr1, cardAttr2, cardAttr3 } = this.state;
     const { cardName, cardDescription, cardImage } = this.state;
     const maxAttr = 90;
@@ -55,11 +68,10 @@ class App extends React.Component {
     cardAttr1 = parseInt(cardAttr1, 10);
     cardAttr2 = parseInt(cardAttr2, 10);
     cardAttr3 = parseInt(cardAttr3, 10);
-    // if (cardName !== '') return false;
     if (
-      cardName !== ''
-      && cardDescription !== ''
-      && cardImage !== ''
+      cardName
+      && cardDescription
+      && cardImage
       && cardAttr1 >= 0 && cardAttr1 <= maxAttr
       && cardAttr2 >= 0 && cardAttr2 <= maxAttr
       && cardAttr3 >= 0 && cardAttr3 <= maxAttr
@@ -71,10 +83,10 @@ class App extends React.Component {
   }
 
   onSaveButtonClick = () => {
-    const { savedCards } = this.state;
-    const newCards = this.state;
-    delete newCards.savedCards;
-    savedCards.push(newCards);
+    const { savedCards } = this.state; // Guarda a lista de cartas já criadas
+    const card = this.state; // Nova carta que será adicionada a lista;
+    delete card.savedCards; // Remove a lista atual para que não fique duplicada quando a nova lista com a adiçao da nova carte for adicionada na linha abaixo
+    savedCards.push(card); // Adiciona a nova carta à lista de cartas já criada
     this.setState({
       cardName: '',
       cardDescription: '',
@@ -83,7 +95,7 @@ class App extends React.Component {
       cardAttr3: '0',
       cardImage: '',
       cardRare: '',
-      cardTrunfo: false,
+      cardTrunfo: '',
       savedCards,
     });
   }
@@ -98,8 +110,10 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      // savedCards,
+      savedCards,
     } = this.state;
+    const hasTrunfo = savedCards.some((card) => card.cardTrunfo);
+
     return (
       <main>
         <Form
@@ -114,7 +128,8 @@ class App extends React.Component {
           onInputChange={ this.onInputChange }
           isSaveButtonDisabled={ this.invalidateAttrs() }
           onSaveButtonClick={ this.onSaveButtonClick }
-          // hasTrunfo={ hasTrunfo }
+          hasTrunfo={ hasTrunfo }
+          savedCards={ savedCards }
         />
         <Card
           cardName={ cardName }
@@ -126,6 +141,18 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
+        <div className="cards">
+          {savedCards.map((item) => (
+            <div className="card" key={ item.cardName }>
+              <p>{ item.cardName }</p>
+              <img src={ item.cardImage } alt={ item.cardName } />
+              <p>{ item.cardDescription }</p>
+              <strong>{ item.cardAttr1 }</strong>
+              <strong>{ item.cardAttr2 }</strong>
+              <strong>{ item.cardAttr3 }</strong>
+            </div>
+          ))}
+        </div>
       </main>
     );
   }
