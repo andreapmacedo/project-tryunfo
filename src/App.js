@@ -107,11 +107,17 @@ class App extends React.Component {
   }
 
   filterRareCards = () => {
-    let { cardRareFilter } = this.state;
     const { cardNameFilter, savedCards } = this.state;
+    let { cardRareFilter, cardTrunfoFilter } = this.state;
+    console.log(cardTrunfoFilter);
+    if (!cardRareFilter) cardRareFilter = 'todas';
+    if (!cardTrunfoFilter) cardTrunfoFilter = false;
+    if (cardTrunfoFilter === true) {
+      return savedCards.filter((card) => card.cardTrunfo === true);
+    }
+
     const nameFiltered = savedCards.filter((card) => card.cardName
       .includes(cardNameFilter));
-    if (!cardRareFilter) cardRareFilter = 'todas';
     if (cardRareFilter === 'todas') return nameFiltered;
     return nameFiltered
       .filter((card) => card.cardRare === cardRareFilter);
