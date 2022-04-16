@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MyInput from './MyInput';
+import '../styles/Form.css';
 
 class Form extends React.Component {
   render() {
@@ -21,19 +22,19 @@ class Form extends React.Component {
     } = this.props;
     return (
       <fieldset>
-        <legend>Form</legend>
-        <section>
-          <h2>Form</h2>
-          <form>
+        <legend>Criar Carta</legend>
+        <section className="form-sec">
+          <form lassName="form">
             <MyInput
+              text="Nome"
               dataTestid="name-input"
               name="cardName"
               type="text"
               value={ cardName }
-              // value="cardName"
               inputChange={ onInputChange }
             />
             <MyInput
+              text="Descrição"
               dataTestid="description-input"
               name="cardDescription"
               type="textarea"
@@ -41,6 +42,7 @@ class Form extends React.Component {
               inputChange={ onInputChange }
             />
             <MyInput
+              text="Atributo 1"
               dataTestid="attr1-input"
               name="cardAttr1"
               type="number"
@@ -48,6 +50,7 @@ class Form extends React.Component {
               inputChange={ onInputChange }
             />
             <MyInput
+              text="Atributo 2"
               dataTestid="attr2-input"
               name="cardAttr2"
               type="number"
@@ -55,6 +58,7 @@ class Form extends React.Component {
               inputChange={ onInputChange }
             />
             <MyInput
+              text="Atributo 3"
               dataTestid="attr3-input"
               name="cardAttr3"
               type="number"
@@ -62,6 +66,7 @@ class Form extends React.Component {
               inputChange={ onInputChange }
             />
             <MyInput
+              text="Imagem"
               dataTestid="image-input"
               name="cardImage"
               type="text"
@@ -70,6 +75,7 @@ class Form extends React.Component {
             />
             Raridade
             <select
+              className="normal-inputbox"
               name="cardRare"
               id="select"
               data-testid="rare-input"
@@ -80,7 +86,7 @@ class Form extends React.Component {
               <option value="raro">raro</option>
               <option value="muito raro">muito raro</option>
             </select>
-            <div>
+            <div className="superTrunfo">
               {/* {hasTrunfo
                 ? <p>Você já tem um Super Trunfo em seu baralho</p>
                 : (<input
@@ -104,6 +110,7 @@ class Form extends React.Component {
               />}
             </div>
             <button
+              className="button-save"
               type="submit"
               data-testid="save-button"
               onSaveButtonClick

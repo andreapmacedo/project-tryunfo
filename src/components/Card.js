@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../styles/Card.css';
 
 class Card extends React.Component {
   render() {
@@ -16,7 +17,7 @@ class Card extends React.Component {
       deleteCard,
     } = this.props;
     return (
-      <section>
+      <section className="tryunfo-card">
         <h2 data-testid="name-card">{ cardName }</h2>
         <img src={ cardImage } alt={ cardName } data-testid="image-card" />
         <p data-testid="description-card">{ cardDescription }</p>
@@ -36,7 +37,7 @@ class Card extends React.Component {
               name={ cardName }
               onClick={ deleteCard }
             >
-              Remover
+              Excluir
             </button>
           )}
         </div>

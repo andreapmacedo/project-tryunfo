@@ -1,0 +1,26 @@
+.cardConteiner {
+  display: flex;
+  flex-flow: row wrap;
+  grid-area: cards;
+  justify-content: space-evenly;
+}
+
+.form {
+  grid-area: form;
+}
+
+.preview {
+  align-items: center;
+  background-color: #023031;
+  display: flex;
+  grid-area: preview;
+  justify-content: center;
+}
+
+.gridContainer {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template: 100vh auto /  35% 15% 50%;
+  grid-template-areas: 'form form preview'
+    '. cards cards';
+}
