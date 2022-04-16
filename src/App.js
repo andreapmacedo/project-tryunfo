@@ -85,11 +85,11 @@ class App extends React.Component {
     this.setState((prevState) => ({
       savedCards: [...prevState.savedCards, newCard],
       cardName: '',
-      cardDescription: 'desc',
+      cardDescription: '',
       cardAttr1: '0',
       cardAttr2: '0',
       cardAttr3: '0',
-      cardImage: 'img',
+      cardImage: '',
       cardRare: 'normal',
       cardTrunfo: false,
       cardNameFilter: prevState.cardNameFilter,
