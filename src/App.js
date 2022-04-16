@@ -151,7 +151,6 @@ class App extends React.Component {
           />
           {savedCards
             .filter((card) => card.cardName.includes(cardNameFilter))
-            // .filter((card) => card.cardName !== cardNameFilter)
             .map((card) => (<Card
               key={ card.cardName }
               cardName={ card.cardName }
