@@ -5,15 +5,17 @@ import Filter from './components/Filter';
 
 const INITIAL_STATE = {
   cardName: '',
-  cardDescription: '',
-  cardAttr1: '',
-  cardAttr2: '',
-  cardAttr3: '',
-  cardImage: '',
-  cardRare: '',
+  cardDescription: 'desc',
+  cardAttr1: '0',
+  cardAttr2: '0',
+  cardAttr3: '0',
+  cardImage: 'img',
+  cardRare: 'normal',
   cardTrunfo: false,
   savedCards: [],
   cardNameFilter: '',
+  cardRareFilter: '',
+  cardTrunfoFilter: '',
 };
 
 class App extends React.Component {
@@ -24,10 +26,7 @@ class App extends React.Component {
 
   onInputChange = ({ target }) => {
     const { name } = target;
-    // console.log(name);
     const value = target.type === 'checkbox' ? target.checked : target.value;
-    // console.log(this.state.hasTrunfo);
-    // console.log(value);
     this.setState({
       [name]: value,
     });
@@ -67,6 +66,8 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
       cardNameFilter,
+      cardRareFilter,
+      cardTrunfoFilter,
     } = this.state;
     const newCard = {
       cardName,
@@ -78,18 +79,22 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
       cardNameFilter,
+      cardRareFilter,
+      cardTrunfoFilter,
     };
     this.setState((prevState) => ({
       savedCards: [...prevState.savedCards, newCard],
       cardName: '',
-      cardDescription: '',
+      cardDescription: 'desc',
       cardAttr1: '0',
       cardAttr2: '0',
       cardAttr3: '0',
-      cardImage: '',
-      cardRare: '',
+      cardImage: 'img',
+      cardRare: 'normal',
       cardTrunfo: false,
       cardNameFilter: prevState.cardNameFilter,
+      cardRareFilter: prevState.cardRareFilter,
+      cardTrunfoFilter: prevState.cardTrunfoFilter,
     }));
   }
 
@@ -99,6 +104,17 @@ class App extends React.Component {
     const { savedCards } = this.state;
     const newArrayWithoutCard = savedCards.filter((card) => card.cardName !== name);
     this.setState({ savedCards: newArrayWithoutCard });
+  }
+
+  filterRareCards = () => {
+    let { cardRareFilter } = this.state;
+    const { cardNameFilter, savedCards } = this.state;
+    const nameFiltered = savedCards.filter((card) => card.cardName
+      .includes(cardNameFilter));
+    if (!cardRareFilter) cardRareFilter = 'todas';
+    if (cardRareFilter === 'todas') return nameFiltered;
+    return nameFiltered
+      .filter((card) => card.cardRare === cardRareFilter);
   }
 
   render() {
@@ -113,8 +129,12 @@ class App extends React.Component {
       cardTrunfo,
       savedCards,
       cardNameFilter,
+      cardRareFilter,
+      cardTrunfoFilter,
     } = this.state;
+
     const hasTrunfo = savedCards.some((card) => card.cardTrunfo);
+    const cardsFilter = this.filterRareCards();
 
     return (
       <main>
@@ -147,10 +167,13 @@ class App extends React.Component {
           <h2>Todas as cartas</h2>
           <Filter
             cardNameFilter={ cardNameFilter }
+            cardRareFilter={ cardRareFilter }
+            cardTrunfoFilter={ cardTrunfoFilter }
             onInputChange={ this.onInputChange }
           />
-          {savedCards
-            .filter((card) => card.cardName.includes(cardNameFilter))
+          {/* {savedCards */}
+          {cardsFilter
+            // .filter((card) => card.cardName.includes(cardNameFilter))
             .map((card) => (<Card
               key={ card.cardName }
               cardName={ card.cardName }
